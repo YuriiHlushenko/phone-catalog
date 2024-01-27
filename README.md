@@ -11,3 +11,5 @@ Card and favorites are stored in local storage.
 
 Slider roll pictures every 5 seconds.
 
+[DEMO LINK](https://yuriihlushenko.github.io/phone-catalog/)
+
