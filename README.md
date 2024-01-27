@@ -1,9 +1,13 @@
-# React TypeScript Starter Pack
+# React Phone catalog
 
-To use this template click `Use this template`
+In this project I used HTML, SCSS, JavaScript,
+React with TypeScript, React Router, React Context.
 
-### Available Scripts
 
-`Deploy` - available to deploy your application to gh-pages
+## Description
+Implemented Products catalog accorging to [this design](https://www.figma.com/file/uEetgWenSRxk9jgiym6Yzp/Phone-catalog-redesign?node-id=1%3A2).
 
-`SCSS Preprocessor` - available to write your styles with modern style language
+Card and favorites are stored in local storage.
+
+Slider roll pictures every 5 seconds.
+
