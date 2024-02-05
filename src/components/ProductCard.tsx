@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { useContext } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Product } from '../types/Product';
 import { ProductsContext } from './ProductsContext';
@@ -9,11 +9,25 @@ type Props = { product: Product; };
 export const ProductCard: React.FC<Props> = ({ product }) => {
   const { search } = useLocation();
   const {
-    cartIds, favIds, addToCard, addToFavorite,
+    cartIds, favIds, addToCard, addToFavorite, measureCard,
   } = useContext(ProductsContext);
 
+  const card = useRef<HTMLDivElement>(null);
+
+  function init() {
+    if (card.current) {
+      measureCard(card.current.offsetWidth);
+    }
+  }
+
+  useEffect(() => {
+    init();
+  }, [card.current]);
+
+  window.addEventListener('resize', init);
+
   return (
-    <div className="card" data-cy="cardsContainer">
+    <div className="card" data-cy="cardsContainer" ref={card}>
       <Link
         className="link"
         to={{ pathname: `/${product.type}s/product/${product.id}`, search }}

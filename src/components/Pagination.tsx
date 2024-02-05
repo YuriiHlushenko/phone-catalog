@@ -14,7 +14,7 @@ export const Pagination: React.FC<Props> = ({
   perPage,
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = +(searchParams.get('page') || '');
+  const currentPage = +(searchParams.get('page') || 1);
   const numPages = Math.ceil(total / perPage);
   const pages = getNumbers(1, numPages).map(n => n);
 

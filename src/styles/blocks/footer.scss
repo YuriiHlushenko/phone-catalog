@@ -1,4 +1,10 @@
 .footer {
   box-shadow: 0 -1px 0 0 $gray-elements;
   border-bottom: 1px solid $gray-elements;
+
+  padding-top: 32px;
+
+  @include on-tablet {
+    padding: 0;
+  }
 }

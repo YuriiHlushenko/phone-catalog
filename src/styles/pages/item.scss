@@ -7,10 +7,6 @@
     margin-bottom: 16px;
   }
 
-  &__mainImg {
-    margin-bottom: 80px;
-  }
-
   &__title {
     @extend %h1;
 
@@ -21,18 +17,53 @@
     display: flex;
     width: 100%;
     height: 100%;
-    flex-direction: column;
     justify-content: space-between;
+    flex-grow: 0;
+    order: 1;
+
+    @media (min-width: 640px) {
+      flex-direction: column;
+    }
   }
 
   &__img {
-    width: 100%;
+    display: inline-block;
+    box-sizing: border-box;
+    border: 1px solid $gray-elements;
+    margin-bottom: 16px;
+    width: 15%;
+
+    @media (min-width: 640px) {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &--selected {
+      border: 1px solid $gray-primary;
+    }
+
+    &--main {
+      width: 100%;
+      border: none;
+    }
+  }
+
+  &__mainImg {
+    order: -1;
+
+    @media (min-width: 640px) {
+      order: 0;
+    }
   }
 
   &__price {
     @extend %h1;
 
-    margin: 0 0 16px;
+    margin: 32px 0 16px;
     display: flex;
     align-items: center;
 
@@ -42,30 +73,61 @@
   }
 
   &__buttons {
+    height: 48px;
     margin-bottom: 32px;
+
+    &-favorite {
+      width: 48px;
+    }
   }
 
   &__about {
     &-title {
       @extend %h2;
+      
+      margin: 56px 0 16px;
 
-      margin:  0 0 16px;
+      @media (min-width: 640px) {
+        margin: 64px 0 16px;
+      }
+
+      @media (min-width: 1200px) {
+        margin: 80px 0 16px;
+      }
     }
 
     &-subtitle {
       @extend %h3;
 
-      margin:  0 0 16px;
+      margin: 0 0 16px;
     }
 
     &-text {
       @extend %body-text;
 
-      margin:  0 0 32px;
+      margin: 0 0 32px;
     }
 
     &-line {
-      margin:  0 0 32px;
+      margin: 0 0 32px;
+    }
+
+    &-specs {
+      margin-bottom: 56px;
+
+      @media (min-width: 640px) {
+        margin-bottom: 64px;
+      }
+
+      @media (min-width: 1200px) {
+        margin-bottom: 80px;
+      }
+    }
+  }
+
+  &__info {
+    &:last-child {
+      margin: 0;
     }
   }
 }

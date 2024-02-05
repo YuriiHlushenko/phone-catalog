@@ -11,11 +11,13 @@ type Context = {
   path: string,
   cartIds: [string, number][],
   favIds: string[],
+  cardWidth: number,
   addToCard: (id: string) => void,
   addToFavorite: (id: string) => void,
   increase: (id: string) => void,
   decrease: (id: string) => void,
   deleteId: (id: string) => void,
+  measureCard: (w: number) => void;
 };
 
 export const ProductsContext = React.createContext<Context>({
@@ -25,11 +27,13 @@ export const ProductsContext = React.createContext<Context>({
   path: '',
   cartIds: [],
   favIds: [],
+  cardWidth: 0,
   addToCard: () => {},
   addToFavorite: () => {},
   increase: () => {},
   decrease: () => {},
   deleteId: () => {},
+  measureCard: () => {},
 });
 
 type Props = {
@@ -40,6 +44,7 @@ export const ProductsProvider: React.FC<Props> = ({ children }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsloading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [cardWidth, setCardWidth] = useState(0);
   const { pathname } = useLocation();
   const path = pathname.slice(1);
 
@@ -106,6 +111,10 @@ export const ProductsProvider: React.FC<Props> = ({ children }) => {
     }
   }
 
+  function measureCard(width: number) {
+    setCardWidth(width);
+  }
+
   const value = useMemo(() => ({
     products,
     isLoading,
@@ -113,12 +122,14 @@ export const ProductsProvider: React.FC<Props> = ({ children }) => {
     path,
     cartIds,
     favIds,
+    cardWidth,
     addToCard,
     addToFavorite,
     increase,
     decrease,
     deleteId,
-  }), [products, isLoading, errorMessage, path, cartIds, favIds]);
+    measureCard,
+  }), [products, isLoading, errorMessage, path, cartIds, favIds, cardWidth]);
 
   return (
     <ProductsContext.Provider value={value}>

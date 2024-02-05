@@ -116,7 +116,7 @@ export const Category: React.FC = () => {
 
       <div className="category__products" data-cy="productList">
         {(total > 4) && (
-          <>
+          <div className="category__selectors">
             <div className="category__selects">
               <label
                 htmlFor="sortSelector"
@@ -166,7 +166,7 @@ export const Category: React.FC = () => {
                 <option value={total}>all</option>
               </select>
             </div>
-          </>
+          </div>
         )}
 
         {visibleProds.length

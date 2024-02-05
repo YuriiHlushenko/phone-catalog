@@ -1,35 +1,64 @@
 .banner {
-  padding-top: 40px;
-  margin-bottom: 72px;
+  margin: 0 -16px 56px;
+
+  @include on-tablet {
+    margin: 0 0 80px;
+  }
 
   &__container {
-    --margin-left: 20px;
+    --margin-left: 16px;
+    --height: 100vw;;
+    --width: 100vw;
+
+    box-sizing: border-box;
+    height: var(--height);
 
     @include on-tablet {
-      --margin-left: 39px;
+      --margin-left: 24px;
+      --height: calc(var(--width) * 0.38);
+      --width: calc(100vw - 2 * var(--margin-left) - 32px * 2 - 16px * 2 - 24px);
     }
 
-    --width: calc(100vw - 2 * var(--margin-left) - 48px * 2 - 14px * 2);
-    --height: calc(var(--width) * 0.38);
-
-    height: var(--height);
     margin-bottom: 5px;
     position: relative;
 
     @include on-desktop {
-      --width: calc(1440px - 39px * 2 - 14px * 2);
-      ;
+      --width: calc(1136px - 32px * 2 - 16px * 2);
+    }
+  }
+
+  &__link {
+    display: none;
+    text-transform: uppercase;
+    padding: calc(var(--width) * 0.15 / 10) calc(var(--width) * 0.5 / 10);
+    position: absolute;
+    text-decoration: none;
+    left: calc(var(--width) * 0.55 / 10);
+    bottom: calc(var(--width) * 0.38 * 0.16);
+    font-size: calc(var(--width) * 0.18 / 10);
+    color: $gray-elements;
+    border: 1px solid $gray-elements;
+    border-radius: calc(var(--width) * 0.18);
+
+    @extend %body-text;
+
+    @include on-tablet {
+      display: block;
     }
   }
 
   &__slider {
+    width: 100%;
     scroll-behavior: smooth;
+    box-sizing: border-box;
     overflow-x: hidden;
     display: inline-block;
-    margin: 0 13px;
-    width: var(--width);
-
     position: relative;
+
+    @include on-tablet {
+      width: var(--width);
+      margin: 0 16px;
+    }
 
     &-line {
       right: 0;
@@ -51,18 +80,24 @@
       }
     }
 
+
     &-container {
       position: relative;
       overflow: hidden;
       display: inline-block;
-      width: calc((var(--width) + 2px) * 3);
+      width: calc(var(--width) * 3);
 
       &--photo {
-        @extend %bacground-position;
-
         display: inline-block;
         height: var(--height);
         width: var(--width);
+
+        object-fit: cover;
+        object-position: 87% 100%;
+
+        @include on-tablet {
+          object-position: center;
+        }
 
         &-1 {
           background-image: url(../../../public/img/Banner1.jpg);
@@ -81,8 +116,14 @@
     &--button {
       @extend %button;
 
+      display: none;
+
+      @include on-tablet {
+        display: inline-block;
+      }
+
+
       box-sizing: border-box;
-      display: inline-block;
       border: 1px solid $gray-icons-placeholders;
       background-color: white;
       transform: translateY(-50%);
@@ -130,7 +171,11 @@
 
 .categories {
   &__container {
-    grid-template-columns: repeat(3, 32%);
+    grid-template-columns: repeat(1, 100%);
+
+    @include on-tablet {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   &__link {

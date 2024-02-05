@@ -1,3 +1,16 @@
+.page {
+  min-width: 280px;
+  scroll-behavior: smooth;
+
+  &__body {
+    margin: 0;
+
+    &--with-menu {
+      overflow: hidden;
+    }
+  }
+}
+
 .section {
   min-height: calc(100vh - 96px - 64px);
 }
@@ -10,18 +23,38 @@
 .pageSection {
   position: relative;
   padding-bottom: 80px;
+  overflow-x: hidden;
+
+  &__welcome-title {
+    @extend %h1;
+
+    margin: 56px 0;
+
+    @mixin on-tablet {
+      font-size: 48px;
+    }
+  }
+
+  &__buttonsTitle {
+    display: flex;
+    justify-content: space-between;
+  }
 
   &__title {
     @extend %h1;
 
+    font-size: 22px;
     text-align: left;
     margin: 0 0 24px;
+
+    @media (min-width: 640px) {
+      font-size: 32px;
+    }
   }
 
   &__buttons {
-   position: absolute;
-   top: 5px;
-   right: 0;
+    flex-shrink: 0;
+    margin-left: 20px;
   }
 
   &__button {
@@ -37,13 +70,47 @@
 
   &__container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    gap: 40px;
     justify-content: center;
     justify-items: center;
+    grid-template-columns: repeat(1, 1fr);
 
-    @mixin on-desktop {
-      grid-template-columns: repeat(4, 270px);
+    @media (min-width: 470px) {
+      gap: 16px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 810px) {
+      gap: 16px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (min-width: 1060px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    &--slider {
+      display: block;
+      scroll-behavior: smooth;
+      box-sizing: border-box;
+      margin-right: -16px;
+      position: relative;
+      overflow-x: hidden;
+
+       @media (min-width: 640px) {
+        margin-right: -24px;
+      }
+
+      @mixin on-desktop {
+        margin-right: 0;
+      }
+
+      &-line {
+        position: relative;
+        transition: 1s;
+        display: flex;
+        gap: 16px;
+      }
     }
   }
 }

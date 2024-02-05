@@ -1,5 +1,5 @@
 import {
-  HashRouter, Routes, Route, Navigate,
+  Routes, Route, Navigate, BrowserRouter,
 } from 'react-router-dom';
 
 import '@fortawesome/fontawesome-free/css/all.css';
@@ -12,7 +12,7 @@ import { CartPage } from './pages/CartPage';
 
 export const Root = () => {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route path="/home" element={<Navigate to="/" replace />} />
         <Route path="/" element={<App />}>
@@ -42,6 +42,6 @@ export const Root = () => {
           />
         </Route>
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 };

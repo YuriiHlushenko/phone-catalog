@@ -1,45 +1,70 @@
 .navbar {
-  height: 64px;
+  height: 48px;
   display: flex;
   position: relative;
-  padding-left: 24px;
   box-shadow: 0 1px 0 0 $gray-elements;
 
-  @media (min-width: 500px) and (max-width:640px) {
-    justify-content: space-between;
+  @include on-tablet {
+    height: 64px;
   }
 
   &--footer {
-    height: 96px;
-    justify-content: center;
+    display: block;
+    height: max-content;
+
+    @include on-tablet {
+      height: 96px;
+      display: flex;
+    }
+
+    justify-content: space-between;
     padding: 0;
   }
 
   &__logo {
-    @extend %absolute-center;
+    position: relative;
+    padding: 0 24px;
+
+    &--add {
+      width: 12.14px;
+      height: 16.67px;
+      position: absolute;
+      bottom: 17.3px;
+      left: calc(44.7px + 24px);
+    }
 
     &--footer {
-      left: 0;
+      padding: 0;
+      margin-bottom: 32px;
+
+      @include on-tablet {
+        margin: 0;
+      }
     }
   }
 
   &__links {
-    display: flex;
-    flex-grow: 0.4;
+    display: none;
+
+    @include on-tablet {
+      display: flex;
+    }
+
+    gap: 64px;
     height: 100%;
-    margin-left: 128px;
+    padding: 0 24px;
     justify-content: space-between;
     align-items: center;
 
-    @media (min-width: 500px) and (max-width:640px) {
-      margin-left: 55px;
-    }
-
-
     &--footer {
       margin: 0;
-      gap: 64px;
-      flex-grow: 0;
+      padding: 0;
+      display: block;
+
+      @include on-tablet {
+        display: flex;
+        padding: 0 24px;
+      }
     }
   }
 
@@ -56,10 +81,34 @@
     font-weight: 700;
     line-height: 11px;
     letter-spacing: 0.04em;
-    margin: 0 5px;
+    margin: 0;
+    box-sizing: border-box;
+
+    &--menu {
+      width: min-content;
+      margin: auto;
+    }
 
     &:hover {
       color: $gray-primary;
+    }
+
+    &--footer {
+      display: block;
+      margin-bottom: 16px;
+
+      &:last-child {
+        margin-bottom: 32px;
+      }
+
+      @include on-tablet {
+        display: flex;
+        margin: 0;
+
+        &:last-child {
+          margin: 0;
+        }
+      }
     }
   }
 
@@ -68,8 +117,20 @@
     flex-grow: 1;
     justify-content: right;
 
-    @media (min-width: 500px) and (max-width:640px) {
-      flex-grow: 0;
+    & > * {
+      display: none;
+
+      @include on-tablet {
+        display: inline-block;
+      }
+    }
+
+    & > a:last-child {
+      display: flex;
+
+      @include on-tablet {
+        display: none;
+      }
     }
   }
 
@@ -77,8 +138,9 @@
     flex-grow: 0.2;
     position: relative;
     box-shadow: -1px 0 0 0 $gray-elements;
+
     &--hide {
-      visibility: hidden;
+      display: none;
     }
 
     &-input {
@@ -113,9 +175,13 @@
   }
 
   &__icons {
-    width: 65px;
+    width: 48px;
     height: 100%;
     box-shadow: -1px 0 0 0 $gray-elements;
+
+    @include on-tablet {
+      width: 65px;
+    }
 
     &-svg {
       @extend %absolute-center;
@@ -153,11 +219,14 @@
   }
 
   &__totop {
-    @extend %absolute-center;
-
-    right: 0;
     display: flex;
     align-items: center;
+    justify-content: center;
+    padding-bottom: 32px;
+
+    @include on-tablet {
+      padding: 0;;
+    }
 
     &-label {
       @extend %small-text;

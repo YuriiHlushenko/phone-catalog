@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 import { Link, useLocation, useParams } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
+import {
+  useContext, useEffect, useRef, useState,
+} from 'react';
 import { PathLine } from '../components/pathLine';
 import * as postServices from '../helpers/products';
 import { Item } from '../types/Item';
@@ -19,7 +21,9 @@ export const ProductDetailsPage: React.FC = () => {
   const [isLoadingItem, setIsloadingItem] = useState(false);
   const [errorMessageItem, setErrorMessageItem] = useState('');
   const [item, setItem] = useState<Item>();
+  const [selectedImg, setSelectedImg] = useState(0);
   const product = products.find(p => p.id === productId);
+  const img0 = useRef<HTMLImageElement>(null);
 
   function loadItem() {
     setIsloadingItem(true);
@@ -46,6 +50,13 @@ export const ProductDetailsPage: React.FC = () => {
     return <Loader />;
   }
 
+  function setImg(n: number) {
+    if (img0.current) {
+      img0.current.src = item?.images[n] || 'img1';
+      setSelectedImg(n);
+    }
+  }
+
   return (
     <>
       <PathLine />
@@ -67,21 +78,31 @@ export const ProductDetailsPage: React.FC = () => {
       </div>
 
       <div className="grid" data-cy="productDescription">
-        <div className="grid__item-1-2">
+        <div className="grid__item--mobile-1-12 grid__item--tablet-1-1 grid__item--desktop-1-2">
           <div className="item__container">
-            <img className="item__img" src={item?.images[1]} alt={item?.images[1]} />
-            <img className="item__img" src={item?.images[2]} alt={item?.images[2]} />
-            <img className="item__img" src={item?.images[3]} alt={item?.images[3]} />
-            <img className="item__img" src={item?.images[4]} alt={item?.images[4]} />
-            <img className="item__img" src={item?.images[5]} alt={item?.images[5]} />
+            {[0, 1, 2, 3, 4, 5].map(n => item?.images[n] && (
+              <img
+                key={n}
+                className={selectedImg === n ? 'item__img item__img--selected' : 'item__img'}
+                src={item?.images[n]}
+                alt={item?.images[n]}
+                role="presentation"
+                onClick={() => setImg(n)}
+              />
+            ))}
           </div>
         </div>
 
-        <div className="grid__item-3-12 item__mainImg">
-          <img className="item__img item__img--main" src={item?.images[0]} alt={item?.images[0]} />
+        <div className="grid__item--mobile-1-12 grid__item--tablet-2-7 grid__item--desktop-3-12 item__mainImg">
+          <img
+            className="item__img item__img--main"
+            src={item?.images[0]}
+            alt={item?.images[0]}
+            ref={img0}
+          />
         </div>
 
-        <div className="grid__item-14-20">
+        <div className="grid__item--mobile-1-12 grid__item--tablet-8-12 grid__item--desktop-14-20">
           <h1 className="item__price">
             {product && (product.discount
               ? (
@@ -101,8 +122,8 @@ export const ProductDetailsPage: React.FC = () => {
                 <button
                   type="button"
                   className={cartIds.some(arr => arr[0] === product.id)
-                    ? 'card__buttons-add card__buttons-add--selected'
-                    : 'card__buttons-add'}
+                    ? 'card__buttons-add card__buttons-add--detail card__buttons-add--selected'
+                    : 'card__buttons-add card__buttons-add--detail'}
                   onClick={() => addToCard(product.id)}
                 >
                   {cartIds.some(arr => arr[0] === product.id)
@@ -112,7 +133,7 @@ export const ProductDetailsPage: React.FC = () => {
 
                 <button
                   type="button"
-                  className="card__buttons-favorite"
+                  className="card__buttons-favorite item__buttons-favorite"
                   onClick={() => addToFavorite(product.id)}
                 >
                   {favIds.includes(product.id)
@@ -150,14 +171,14 @@ export const ProductDetailsPage: React.FC = () => {
           )}
         </div>
 
-        <div className="grid__item-1-12">
+        <div className="grid__item--mobile-1-12 grid__item--tablet-1-12 grid__item--desktop-1-12">
 
           <h2 className="item__about-title">About</h2>
           <div className="card__line item__about-line" />
           <p className="item__about-text">
             {item?.description}
           </p>
-          <h3 className="item__about-subtitle">AdditionalFeatures</h3>
+          <h3 className="item__about-subtitle">Additional Features</h3>
           <p className="item__about-text">
             {item?.additionalFeatures.split(',').map(l => (
               <span key={l}>
@@ -168,11 +189,11 @@ export const ProductDetailsPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid__item-14-22">
+        <div className="item__about-specs grid__item--mobile-1-12 grid__item--tablet-1-12 grid__item--desktop-14-22">
           <h2 className="item__about-title">Tech specs</h2>
           <div className="card__line item__about-line" />
           <div className="card__info">
-            ScreenResolution
+            Screen Resolution
             <span className="card__info--bold">{item?.display.screenResolution}</span>
           </div>
           <div className="card__info">
@@ -272,7 +293,7 @@ export const ProductDetailsPage: React.FC = () => {
             Dimensions
             <span className="card__info--bold">{item?.sizeAndWeight.dimensions.join(' ')}</span>
           </div>
-          <div className="card__info">
+          <div className="card__info item__info">
             Weight
             <span className="card__info--bold">{item?.sizeAndWeight.weight}</span>
           </div>
