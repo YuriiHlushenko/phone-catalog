@@ -37,7 +37,6 @@
     &-top {
       display: flex;
       align-items: center;
-      justify-content: space-between;
       margin-bottom: 16px;
 
       @media (min-width: 640px) {
@@ -63,7 +62,7 @@
 
     &-title {
       @extend %body-text;
-      
+
       display: inline-block;
 
       @media (min-width: 640px) {

@@ -103,6 +103,7 @@ export const Menu: React.FC = () => {
         <NavLink
           to={{ pathname: bagPathname(), search }}
           className={getClass}
+          onClick={hideMenu}
         >
           <div className="navbar__icons menu__footer--icons">
             <img className="navbar__icons-svg" src="icons/bag.svg" alt="bag" />
