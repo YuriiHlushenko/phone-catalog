@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 import debounce from 'lodash.debounce';
 import {
-  Link,
   NavLink, useLocation, useParams, useSearchParams,
 } from 'react-router-dom';
 import { useCallback, useContext, useState } from 'react';
@@ -50,6 +49,22 @@ export const Navbar: React.FC = () => {
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
     applyQuery(event.target.value);
+  };
+
+  const menu = document.getElementById('menu');
+
+  const showMenu = () => {
+    document.body.classList.add('page__body--with-menu');
+
+    if (menu) {
+      menu.style.transform = 'translateX(0)';
+    }
+
+    // document.body.classList.remove('page__body--with-menu');
+
+    // if (menu.current) {
+    //   menu.current.style.transform = 'translateX(-100%)';
+    // }
   };
 
   return (
@@ -141,7 +156,12 @@ export const Navbar: React.FC = () => {
           </div>
         </NavLink>
 
-        <Link to="menu" aria-label="menu" className="navbar-item">
+        <button
+          type="button"
+          aria-label="menu"
+          className="navbar-item navbar-item--button"
+          onClick={showMenu}
+        >
           <div className="navbar__icons">
             <svg className="navbar__icons-svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M1 4.5C1 4.08579 1.39175 3.75 1.875 3.75H14.125C14.6082 3.75 15 4.08579 15 4.5C15 4.91421 14.6082 5.25 14.125 5.25H1.875C1.39175 5.25 1 4.91421 1 4.5Z" fill="#313237" />
@@ -149,7 +169,7 @@ export const Navbar: React.FC = () => {
               <path d="M1.875 10.75C1.39175 10.75 1 11.0858 1 11.5C1 11.9142 1.39175 12.25 1.875 12.25H14.125C14.6082 12.25 15 11.9142 15 11.5C15 11.0858 14.6082 10.75 14.125 10.75H1.875Z" fill="#313237" />
             </svg>
           </div>
-        </Link>
+        </button>
       </div>
     </nav>
   );
