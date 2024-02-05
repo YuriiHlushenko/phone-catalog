@@ -4,12 +4,12 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { ProductsContext } from './ProductsContext';
 
 export const Menu: React.FC = () => {
-  const { pathname, search, hash } = useLocation();
+  const { pathname, search} = useLocation();
   const { favIds, cartIds } = useContext(ProductsContext);
 
   const menu = useRef<HTMLDivElement>(null);
 
-  if (hash === '#menu') {
+  if (pathname.includes('menu')) {
     document.body.classList.add('page__body--with-menu');
 
     if (menu.current) {
@@ -44,7 +44,7 @@ export const Menu: React.FC = () => {
       return pathname;
     }
 
-    return `${pathname}/CartPage`;
+    return '/CartPage';
   };
 
   const totalCount = cartIds.map(arr => arr[1]).reduce((sum, cur) => sum + cur, 0);
